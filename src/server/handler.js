@@ -6,6 +6,16 @@ async function postPredictHandler(request, h) {
     const { image } = request.payload;
     const { model } = request.server.app;
 
+    if (image > 1000000) {
+        const response = h.response({
+            status: 'fail',
+            message: 'Payload content length greater than maximum allowed: 1000000',
+            data
+        })
+        response.code(413);
+        return response;
+    }
+
     const { label, suggestion } = await predictClassification(model, image);
 
     const id = crypto.randomUUID();
