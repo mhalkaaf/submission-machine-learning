@@ -1,6 +1,6 @@
 const express = require('express');
 const multer = require('multer');
-const postPredictHandler = require('./predictHandler');
+const postPredictHandler = require('./handler');
 
 const router = express.Router();
 
