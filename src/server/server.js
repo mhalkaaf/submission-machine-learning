@@ -4,7 +4,7 @@ const Hapi = require('@hapi/hapi');
 const routes = require('./routes');
 const loadModel = require('../services/loadModel');
 const InputError = require('../exceptions/InputError');
-// const PredictionError = require('../exceptions/PredictionError');
+const PredictionError = require('../exceptions/PredictionError');
  
 (async () => {
     const server = Hapi.server({
@@ -34,14 +34,14 @@ const InputError = require('../exceptions/InputError');
             return newResponse;
         }
 
-        // if (response instanceof PredictionError) {
-        //     const newResponse = h.response({
-        //         status: 'fail',
-        //         message: 'Terjadi kesalahan dalam melakukan prediksi'
-        //     });
-        //     newResponse.code(response.statusCode);
-        //     return newResponse;
-        // }
+        if (response instanceof PredictionError) {
+            const newResponse = h.response({
+                status: 'fail',
+                message: 'Terjadi kesalahan dalam melakukan prediksi'
+            });
+            newResponse.code(response.statusCode);
+            return newResponse;
+        }
 
         if (response.isBoom) {
             if (response.output.statusCode === 413) {
