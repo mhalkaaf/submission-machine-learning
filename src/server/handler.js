@@ -1,21 +1,14 @@
 const predictClassification = require('../services/inferenceService');
 const crypto = require('crypto');
 const storeData = require('../services/storeData');
+const ClientError = require('../exceptions/ClientError');
 
 async function postPredictHandler(request, h) {
     const { image } = request.payload;
     const { model } = request.server.app;
 
-    if (image > 1000000) {
-        const response = h.response({
-            status: 'fail',
-            message: 'Payload content length greater than maximum allowed: 1000000',
-        })
-        response.code(413);
-        return response;
-    }
-
-    const { label, suggestion } = await predictClassification(model, image);
+    try {
+        const { label, suggestion } = await predictClassification(model, image);
 
     const id = crypto.randomUUID();
     const createdAt = new Date().toISOString();
@@ -36,6 +29,15 @@ async function postPredictHandler(request, h) {
     })
     response.code(201);
     return response;
+    } catch (error) {
+        // Assume predictClassification throws an error for invalid image format or shape
+        if (error.message.includes('invalid image format or shape')) {
+            throw new ClientError('Terjadi kesalahan dalam melakukan prediksi');
+        }
+        // Re-throw the error if it's not a prediction-related error
+        throw error;
+    }
+    
 }
 
 
