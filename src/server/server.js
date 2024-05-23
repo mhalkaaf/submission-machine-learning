@@ -4,7 +4,7 @@ const Hapi = require('@hapi/hapi');
 const routes = require('./routes');
 const loadModel = require('../services/loadModel');
 const InputError = require('../exceptions/InputError')
-const ClientError = require('../exceptions/ClientError')
+const PredictionError = require('../exceptions/PredictionError')
  
 (async () => {
     const server = Hapi.server({
@@ -34,12 +34,12 @@ const ClientError = require('../exceptions/ClientError')
             return newResponse;
         }
 
-        if (response instanceof ClientError) {
+        if (response instanceof PredictionError) {
             const newResponse = h.response({
                 status: 'fail',
                 message: 'Terjadi kesalahan dalam melakukan prediksi'
             });
-            newResponse.code(response.statusCode); // Use the status code from the error
+            newResponse.code(response.statusCode);
             return newResponse;
         }
 

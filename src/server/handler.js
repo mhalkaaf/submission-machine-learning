@@ -1,8 +1,7 @@
 const predictClassification = require('../services/inferenceService');
 const crypto = require('crypto');
 const storeData = require('../services/storeData');
-const ClientError = require('../exceptions/ClientError');
-const InputError = require('../exceptions/InputError');
+const PredictionError = require('../exceptions/PredictionError');
 
 async function postPredictHandler(request, h) {
     const { image } = request.payload;
@@ -31,7 +30,7 @@ async function postPredictHandler(request, h) {
         response.code(201);
         return response;
     } catch (error) {
-        throw new InputError('Terjadi kesalahan dalam melakukan prediksi');
+        throw new PredictionError('Terjadi kesalahan dalam melakukan prediksi');
     }
 }
 
