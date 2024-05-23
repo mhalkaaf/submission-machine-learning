@@ -32,7 +32,7 @@ async function postPredictHandler(request, h) {
     } catch (error) {
         if (error.message.includes('invalid image format or shape')) {
             throw new PredictionError('Terjadi kesalahan dalam melakukan prediksi');
-        } 
+        };
     }
 }
 
