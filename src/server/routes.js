@@ -10,6 +10,7 @@ const routes = [
         /*Mengizinkan data berupa gambar*/
         maxBytes: 1000000,
         allow: 'multipart/form-data',
+        output: 'stream',
         multipart: true
       }
     }
