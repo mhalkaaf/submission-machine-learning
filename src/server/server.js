@@ -3,8 +3,8 @@ require('dotenv').config();
 const Hapi = require('@hapi/hapi');
 const routes = require('./routes');
 const loadModel = require('../services/loadModel');
-const InputError = require('../exceptions/InputError')
-const PredictionError = require('../exceptions/PredictionError')
+const InputError = require('../exceptions/InputError');
+const PredictionError = require('../exceptions/PredictionError');
  
 (async () => {
     const server = Hapi.server({
