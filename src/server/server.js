@@ -3,7 +3,7 @@ require('dotenv').config();
 const Hapi = require('@hapi/hapi');
 const routes = require('./routes');
 const loadModel = require('../services/loadModel');
-const InputError = require('../exceptions/InputError');
+const ClientError = require('../exceptions/ClientError');
  
 (async () => {
     const server = Hapi.server({
@@ -24,7 +24,7 @@ const InputError = require('../exceptions/InputError');
     server.ext('onPreResponse', function (request, h) {
         const response = request.response;
  
-        if (response instanceof InputError) {
+        if (response instanceof ClientError) {
             const newResponse = h.response({
                 status: 'fail',
                 message: 'Terjadi kesalahan dalam melakukan prediksi'
@@ -32,7 +32,7 @@ const InputError = require('../exceptions/InputError');
             newResponse.code(response.statusCode)
             return newResponse;
         }
- 
+
         if (response.isBoom) {
             if (response.output.statusCode === 413) {
                 const newResponse = h.response({
