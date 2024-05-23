@@ -27,18 +27,9 @@ const InputError = require('../exceptions/InputError');
         if (response instanceof InputError) {
             const newResponse = h.response({
                 status: 'fail',
-                message: `${response.message} Silakan gunakan foto lain.`
+                message: 'Terjadi kesalahan dalam melakukan prediksi'
             })
             newResponse.code(response.statusCode)
-            return newResponse;
-        }
-
-        if (response instanceof PredictionError) {
-            const newResponse = h.response({
-                status: 'fail',
-                message: 'Terjadi kesalahan dalam melakukan prediksi'
-            });
-            newResponse.code(response.statusCode);
             return newResponse;
         }
  
