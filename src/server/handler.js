@@ -10,7 +10,6 @@ async function postPredictHandler(request, h) {
         const response = h.response({
             status: 'fail',
             message: 'Payload content length greater than maximum allowed: 1000000',
-            data
         })
         response.code(413);
         return response;
