@@ -30,10 +30,7 @@ async function postPredictHandler(request, h) {
         })
         return h.response(response).code(201);
     } catch (error) {
-        if (error.message.includes('invalid image format or shape')) {
-            throw new PredictionError('Terjadi kesalahan dalam melakukan prediksi');
-        }
-        throw error;
+        throw new PredictionError('Terjadi kesalahan dalam melakukan prediksi');
     }
 }
 
