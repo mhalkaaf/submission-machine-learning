@@ -1,7 +1,7 @@
 const predictClassification = require('../services/inferenceService');
 const crypto = require('crypto');
 const storeData = require('../services/storeData');
-const ClientError = require('../exceptions/ClientError');
+const InputError = require('../exceptions/InputError');
 
 async function postPredictHandler(request, h) {
     const { image } = request.payload;
@@ -30,14 +30,8 @@ async function postPredictHandler(request, h) {
     response.code(201);
     return response;
     } catch (error) {
-        // Assume predictClassification throws an error for invalid image format or shape
-        if (error.message.includes('invalid image format or shape')) {
-            throw new ClientError('Terjadi kesalahan dalam melakukan prediksi');
-        }
-        // Re-throw the error if it's not a prediction-related error
-        throw error;
+        throw new InputError('Terjadi kesalahan dalam melakukan prediksi');
     }
-    
 }
 
 
