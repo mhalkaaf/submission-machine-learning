@@ -5,6 +5,9 @@ const routes = require('./routes');
 const loadModel = require('../services/loadModel');
 const InputError = require('../exceptions/InputError');
 const PredictionError = require('../exceptions/PredictionError');
+const bodyParser = require("body-parser");
+
+router.use(bodyParser.json());
  
 (async () => {
     const server = Hapi.server({

@@ -1,6 +1,6 @@
 {  
  "backend-service-url": "34.34.223.197:3000",
- "frontend-service-url": "https://submissionmlgc-haeckal.uc.r.appspot.com",
+ "frontend-service-url": "http://submissionmlgc-haeckal.uc.r.appspot.com",
  "project-id": "submissionmlgc-haeckal",
  "bucket-name": "submission-haeckal-0711"
 }
