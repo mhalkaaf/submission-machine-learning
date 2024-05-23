@@ -30,7 +30,7 @@ async function postPredictHandler(request, h) {
         response.code(201);
         return response;
     } catch (error) {
-        throw new PredictionError('Terjadi kesalahan dalam melakukan prediksi');
+        throw PredictionError('Terjadi kesalahan dalam melakukan prediksi');
     }
 }
 
